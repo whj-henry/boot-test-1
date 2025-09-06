@@ -1,0 +1,43 @@
+spring:
+  # 主数据源配置
+  datasource:
+    dynamic:
+      # 设置默认数据源
+      primary: primary
+      # 严格模式（默认false，建议true）
+      strict: true
+      datasource:
+        # 主数据源
+        primary:
+          url: jdbc:mysql://192.168.31.9:3306/primary_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: root
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          hikari:
+            maximum-pool-size: 20
+            minimum-idle: 5
+        # 从数据源
+        secondary:
+          url: jdbc:mysql://192.168.31.9:3306/secondary_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: root
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          hikari:
+            maximum-pool-size: 15
+            minimum-idle: 3
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# 日志配置
+logging:
+  level:
+    com.example.demo.mapper: debug
